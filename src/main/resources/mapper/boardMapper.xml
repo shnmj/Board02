@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mapper.BoardMapper">
+	<!-- insert tag 안 주석 및 ; 금지, 대소문자 주의 
+		mybatis 는 내부에 PreparedStatement 사용
+		para 전달을 ?로 / para = #{title} title : setString(1, vo.getTitleI() );
+		보통 para는 vo 사용 (상황에 따라)
+	-->
+  <insert id= "boardInsert">
+    INSERT INTO BOARD(
+        BNO,
+        TITLE,
+        CONTENT,
+        WRITER)
+     VALUES (
+        (SELECT NVL(MAX(BNO), 0)+1 FROM BOARD ),
+        #{title},
+        #{content},
+        #{writer} )
+        
+  </insert>
+  
+</mapper>
